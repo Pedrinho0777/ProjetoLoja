@@ -40,16 +40,7 @@ namespace ProjetoLoja.Dao
             using(SqlConnection conexao = new SqlConnection(conexaoSqlServer))
             {
                 try
-                {
-                    //verifica se o id Existe no banco
-                    //string verificaIdSql = "SELECT COUNT(*) FROM ClienteLoja WHERE Id = @Id";
-                    //SqlCommand verificaIdCmd = new SqlCommand(verificaIdSql, conexao);
-                    //verificaIdCmd.Parameters.AddWithValue("@Id",cliente.id);
-                    //conexao.Open();
-                    //int count = Convert.ToInt32(verificaIdCmd.ExecuteScalar());
-
-                    //if (count > 0)
-                  //  {
+                { 
                         string sql = "UPDATE ClienteLoja SET Nome =@Nome, Endereco =@Endereco, Email =@Email, Telefone =@Telefone, Sexo =@Sexo WHERE Id =@Id";
                         SqlCommand cmd = new SqlCommand(sql, conexao);
                         cmd.Parameters.AddWithValue("@Id", cliente.id);
@@ -61,11 +52,6 @@ namespace ProjetoLoja.Dao
                        conexao.Open();
                         cmd.ExecuteNonQuery();
                         Console.WriteLine("Alterado com Sucesso");
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine("ID não existe");
-                    //}
                 }
                 catch (Exception e)
                 {
