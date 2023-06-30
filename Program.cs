@@ -11,7 +11,7 @@ namespace ProjetoLoja
 {
     class Program
     {
-        enum menu {Cadastro =1,Alterar,Deletar,Consultar,ConsultaCep,Sair =0}
+        enum menu {Cadastro =1,Alterar,Deletar,Consultar,ConsultaCep,RelatorioPorSexo,Sair =0}
         static async Task Main(string[] args)
         {
             ClienteDao clienteDao = new ClienteDao();
@@ -27,11 +27,11 @@ namespace ProjetoLoja
                 try
                 {
                     Console.WriteLine("Escolha uma Opção\n");
-                    Console.WriteLine("1-Cadastro\n2-Alterar\n3-Deletar\n4-Consultar\n5-ConsultaCep\n0-Sair\n");
+                    Console.WriteLine("1-Cadastro\n2-Alterar\n3-Deletar\n4-Consultar\n5-ConsultaCep\n6-RelátorioPorSexo\n0-Sair\n");
                     int esco = int.Parse(Console.ReadLine());
                     menu opcao = (menu)esco;
                     //faz uma verificao em relacao ao menu, se nao for nenhuma delas ele mostra uma mensagem 
-                    if (esco == 1 || esco == 2 || esco == 3 || esco == 4 || esco == 5 || esco == 0)
+                    if (esco == 1 || esco == 2 || esco == 3 || esco == 4 || esco == 5 || esco == 6 || esco == 0)
                     {
                         //Cria as opçoes para o usuario
                         switch (opcao)
@@ -145,6 +145,20 @@ namespace ProjetoLoja
                                     Console.WriteLine("Erro na consulta de cep, cep inválido");
                                 }
                                 Console.ReadKey();
+                                break;
+
+                            case menu.RelatorioPorSexo:
+                                Console.Clear();
+                                Console.WriteLine("Digite o sexo, masculino ou feminino");
+                                string sex = Console.ReadLine();
+                                if(sex != "masculino" || sex != "feminino")
+                                {
+                                    Console.WriteLine("Sexo digitado inválido");
+                                }
+                                else
+                                {
+                                    clienteDao.relatorioPorSexo(sex);
+                                }
                                 break;
 
                             case menu.Sair:

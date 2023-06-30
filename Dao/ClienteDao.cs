@@ -49,7 +49,7 @@ namespace ProjetoLoja.Dao
                         cmd.Parameters.AddWithValue("@Email", cliente.Email);
                         cmd.Parameters.AddWithValue("@Telefone", cliente.Telefone);
                         cmd.Parameters.AddWithValue("@Sexo", cliente.Sexo);
-                       conexao.Open();
+                        conexao.Open();
                         cmd.ExecuteNonQuery();
                         Console.WriteLine("Alterado com Sucesso");
                 }
@@ -120,7 +120,7 @@ namespace ProjetoLoja.Dao
                             string telefone = tabela["Telefone"].ToString();
                             string sexo = tabela["Sexo"].ToString();
 
-                            Console.WriteLine("Id do cliente: " + id);
+                            Console.WriteLine("Código do cliente: " + id);
                             Console.WriteLine("Nome: " + nome);
                             Console.WriteLine("Endereço: " + endereco);
                             Console.WriteLine("E-mail: " + email);
@@ -141,7 +141,6 @@ namespace ProjetoLoja.Dao
                 }
             }
         }
-
         // verifica se id para existe no banco de dados
         public bool VerificaId(int id)
         {
@@ -169,6 +168,39 @@ namespace ProjetoLoja.Dao
                 }
             }
             return false;
+        }
+
+        public void relatorioPorSexo(string sexo)
+        {
+            using(SqlConnection conexao = new SqlConnection(conexaoSqlServer))
+            {
+                try
+                {
+                    string sql = "SELECT Nome,Email FROM ClienteLoja WHERE Sexo =@Sexo";
+                    SqlCommand cmd = new SqlCommand(sql, conexao);
+                    cmd.Parameters.AddWithValue("@Sexo", sexo);
+                    conexao.Open();
+                    SqlDataReader tabela = cmd.ExecuteReader();
+
+                    if (tabela.HasRows)
+                    {
+                        while (tabela.Read())
+                        {
+                            string nome = tabela["Nome"].ToString();
+                            string email = tabela["Email"].ToString();
+
+                            Console.WriteLine("Nome: " + nome);
+                            Console.WriteLine("E-mail: " + email);
+                            Console.WriteLine("=======================================");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Erro para mostar o Relatorio " + e.Message);
+                }
+                
+            }
         }
 
     }
