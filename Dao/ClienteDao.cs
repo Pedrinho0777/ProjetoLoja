@@ -53,9 +53,9 @@ namespace ProjetoLoja.Dao
                         cmd.ExecuteNonQuery();
                         Console.WriteLine("Alterado com Sucesso");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine("Erro para Alterar" + e.Message);
+                    Console.WriteLine("Erro para Alterar" );
                 }
             }
         }
